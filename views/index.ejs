@@ -13,7 +13,23 @@
     <h1><%=msg%></h1>
 
 
-    <!-- <p><%=JSON.stringify(personnes)%> </p> -->
+    <p><%=JSON.stringify(personnes)%> </p>
+
+<form action="/personnes" method="post">
+    
+    <input type="text" placeholder="nom" name="nom"> <br> <br>
+    <input type="text" placeholder="prenom" name="prenom"> <br> <br>
+    <input type="text" placeholder="Telephone" name="tel"> <br> <br>
+    <br> 
+ <input type="submit" value="Ajouter">
+ <input type="reset" value="Annuler">
+
+    
+</form>
+
+
+<hr>
+<input type="text" placeholder="search here">
 
     <table>
         <tr>
@@ -21,8 +37,8 @@
             <th>prenom</th>
             <th>Telephone</th>
         </tr>
-
-        <% for(var i=0; i<4; i++)  {%>
+   <%=long%>
+        <% for(var i=0; i   < long ; i++)  {%>
         <tr>
             <td>
                 <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>

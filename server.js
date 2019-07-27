@@ -23,21 +23,42 @@ var connection = mysql.createConnection({
 connection.connect();
  
 //requete select
-connection.query('SELECT * FROM personnes ', function (error, result) {
+
 //   console.log('personnes list  ', result)
   app.get('/',
   function (req,res) {
-      //req request 
-      //res respnse
+    connection.query('SELECT * FROM personnes ', function (error, result) {
       console.log(__dirname);
-      res.render('index',{msg:'hello world' ,personnes:result});
-      // res.render('index');
-      // res.send('ok')
+      console.log(result.length);
+      res.render('index',{msg:'hello world' ,personnes:result,long:result.length});
+
+    });
+     
       
   }
   )
 
-});
+  app.post('/personnes',(req,res)=> {
+
+     console.log(req.body);
+
+
+    connection.query("INSERT INTO personnes(nom, prenom, tel) VALUES ('"+req.body.nom+"','"+
+    req.body.prenom+"','"+
+    req.body.tel+"')"
+  
+    ,function (err, result) {
+      if (err) throw err;
+      res.render('ajoute',{msg:'ajouté avec succes'})
+    })
+
+    
+  }
+  
+  
+  )
+
+
 
 
  
