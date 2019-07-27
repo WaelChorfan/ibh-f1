@@ -1,0 +1,1 @@
+1 npm i -S http 2 echo `history` > a.txt 3 node server.js 4 npm install --save express 5 mkdir wwwroot 6 echo `history` > a.txt 7 echo `history\n` > a.txt 8 echo `history`\n > a.txt n

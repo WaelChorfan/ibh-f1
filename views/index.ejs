@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>hello</h1>
+    <h1><%=msg%></h1>
+
+
+    <!-- <p><%=JSON.stringify(personnes)%> </p> -->
+
+    <table>
+        <tr>
+            <th>nom </th>
+            <th>prenom</th>
+            <th>Telephone</th>
+        </tr>
+
+        <% for(var i=0; i<4; i++)  {%>
+        <tr>
+            <td>
+                <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
+            </td>
+
+            <td>
+                <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
+            </td>
+            <td>
+                <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
+            </td>
+
+        </tr>
+        <% } %>
+
+    </table>
+</body>
+
+</html>
