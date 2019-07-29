@@ -12,14 +12,15 @@
     <h1>hello</h1>
     <h1><%=msg%></h1>
 
-
     <p><%=JSON.stringify(personnes)%> </p>
 
-<form action="/personnes" method="post">
+<form action="/personnes" method="delete">
     
     <input type="text" placeholder="nom" name="nom"> <br> <br>
     <input type="text" placeholder="prenom" name="prenom"> <br> <br>
     <input type="text" placeholder="Telephone" name="tel"> <br> <br>
+   
+
     <br> 
  <input type="submit" value="Ajouter">
  <input type="reset" value="Annuler">
@@ -27,15 +28,16 @@
     
 </form>
 
-
 <hr>
 <input type="text" placeholder="search here">
+<form action="/personnes" method="post">
 
     <table>
         <tr>
             <th>nom </th>
             <th>prenom</th>
             <th>Telephone</th>
+            <th>delete</th>
         </tr>
    <%=long%>
         <% for(var i=0; i   < long ; i++)  {%>
@@ -43,6 +45,7 @@
             <td>
                 <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
             </td>
+           
 
             <td>
                 <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
@@ -50,11 +53,22 @@
             <td>
                 <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
             </td>
+        
+
+            <td>
+                <form action="/deletePersonne" method="post">
+                    <input type="text" name="id" value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
+                </input>
+                    <input type="submit" value="Delete" />
+                </form>
+
+            </td>
 
         </tr>
         <% } %>
 
     </table>
+</form>
 </body>
 
 </html>
