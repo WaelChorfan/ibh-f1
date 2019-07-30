@@ -27,7 +27,7 @@ app.get('/',
   function (req, res) {
     connection.query('SELECT * FROM personnes ', function (error, result) {
       console.log(__dirname);
-      res.render('index', { msg: 'hello world', personnes: result, long: result.length });
+      res.render('index', { msg: 'Personnes', personnes: result, long: result.length });
 
     });
 
@@ -50,7 +50,7 @@ app.post('/search',
     connection.query(q, function (error, result) {
       console.log(__dirname);
       res.render('index', {
-        msg: 'hello world , result(s) of search ',
+        msg: 'Personnes , result(s) of search ',
         personnes: result?result:[],
         long: result?result.length:0
       });
