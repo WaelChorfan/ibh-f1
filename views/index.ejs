@@ -15,26 +15,40 @@
     <h1>hello</h1>
     <h1><%=msg%></h1>
 
-  
-    <form action="/personnes" method="post">
+    <!-- <p><%=JSON.stringify(personnes)%> </p> -->
 
-        <!-- style="visibility:visible" -->
-        <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
-        <input type="text" placeholder="nom" name="nom"> <br> <br>
-        <input type="text" placeholder="prenom" name="prenom"> <br> <br>
-        <input type="text" placeholder="Telephone" name="tel"> <br> <br>
+    <div class="container">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <!-- block1 -->
+            <form action="/personnes" method="post">
+
+                <!-- style="visibility:visible" -->
+                <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
+                <input type="text" placeholder="nom" name="nom"> <br> <br>
+                <input type="text" placeholder="prenom" name="prenom"> <br> <br>
+                <input type="text" placeholder="Telephone" name="tel"> <br> <br>
+        
+        
+                <br>
+                <input type="submit" value="Enregistrer">
+                <input type="reset" value="Annuler">
+        
+        
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <!-- block2 -->
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 
 
-        <br>
-        <input type="submit" value="Enregistrer">
-        <input type="reset" value="Annuler">
 
-
-    </form>
-
-    <hr>
+   
     <input type="text" placeholder="search here">
-
 
     <table>
         <tr>
@@ -84,19 +98,13 @@
         <% } %>
 
     </table>
-
-    <%  var ps = personnes; %>
-
+  
     <script>
-
         function setEditionMode() {
-
-
             document.getElementsByName("id")[0].value = window.id
             document.getElementsByName("nom")[0].value = window.nom
             document.getElementsByName("prenom")[0].value = window.prenom
             document.getElementsByName("tel")[0].value = window.tel
-
         }
     </script>
 </body>
