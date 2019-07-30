@@ -7,80 +7,88 @@ var app = express();
 
 //configuration seveur express
 app.use(bodyParser.urlencoded({ extended: false }))
-app.set('views', __dirname + '/views');  
-app.set('view engine','ejs');
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 //configuration db
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '0000',
-  database : 'example-db'
+  host: 'localhost',
+  user: 'root',
+  password: '0000',
+  database: 'example-db'
 });
- 
+
 connection.connect();
- 
+
 //requete select
 
 //   console.log('personnes list  ', result)
-  app.get('/',
-  function (req,res) {
+app.get('/',
+  function (req, res) {
     connection.query('SELECT * FROM personnes ', function (error, result) {
       console.log(__dirname);
-      res.render('index',{msg:'hello world' ,personnes:result,long:result.length});
+      res.render('index', { msg: 'hello world', personnes: result, long: result.length });
 
     });
-     
-      
+
+
   }
-  )
-  app.get('/delete:id',
-  function (req,res) {
-    connection.query('delete FROM personnes where id= '+req.params.id, function (error, result) {
-      
-      res.render('ajoute',{msg:req.params.id+'supprimé avec succés'});
+)
+app.get('/delete:id',
+  function (req, res) {
+    connection.query('delete FROM personnes where id= ' + req.params.id, function (error, result) {
+
+      res.render('ajoute', { msg: req.params.id + 'supprimé avec succés' });
 
     });
-     
-      
+
+
   }
-  )
+)
+//upsert = update or insert
+app.post('/personnes', (req, res) => {
+  var r = req.body;
+  let q = ' INSERT INTO personnes(id, nom, prenom, tel)   VALUES (?,?,?,?)'
+    + 'ON DUPLICATE KEY UPDATE '
+    + ' nom= ?,prenom= ?,tel= ?'
 
-  app.post('/personnes',(req,res)=> {
+    //respectivement ordonnés comme dans la requete
+  let d = [ r.id , r.nom,r.prenom,r.tel  ,r.nom,r.prenom,r.tel]
 
-     console.log(req.body);
+  let query = mysql.format(q, d)
 
-    connection.query("INSERT INTO personnes(nom, prenom, tel) VALUES ('"+req.body.nom+"','"+
-    req.body.prenom+"','"+
-    req.body.tel+"')"
-  
-    ,function (err, result) {
-      if (err) throw err;
-      res.render('ajoute',{msg:'ajouté avec succes'})
-    })
+
+  connection.query(query, function (err, result) {
+    if (err) throw err;
+    //enregistrer c'est ajouter ou modifier
+    // res.send('Enregistré avec succes')
+
+
+      res.redirect('http://localhost:3000')
   })
-  
+})
 
-  
+
+
 app.post('/deletePersonne',
-function (req,res) {
- 
-  var q= 'delete FROM personnes where id=' +req.body.id;
-  console.log(q)
-  connection.query( q, function (error, result) {
-   
-    res.send(req.body.id+'deleted successfully')
+  function (req, res) {
 
-  });
-    
-}
+    var q = 'delete FROM personnes where id=' + req.body.id;
+    console.log(q)
+    connection.query(q, function (error, result) {
+      res.redirect('http://localhost:3000')
+    });
+
+  }
 )
 
 
- 
+
+
+
 app.listen(3000);
 
- 
+
 console.log('The server is up and running at http://localhost:3000');
 
 

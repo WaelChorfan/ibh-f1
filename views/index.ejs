@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 
@@ -12,25 +15,26 @@
     <h1>hello</h1>
     <h1><%=msg%></h1>
 
-    <p><%=JSON.stringify(personnes)%> </p>
+  
+    <form action="/personnes" method="post">
 
-<form action="/personnes" method="delete">
-    
-    <input type="text" placeholder="nom" name="nom"> <br> <br>
-    <input type="text" placeholder="prenom" name="prenom"> <br> <br>
-    <input type="text" placeholder="Telephone" name="tel"> <br> <br>
-   
+        <!-- style="visibility:visible" -->
+        <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
+        <input type="text" placeholder="nom" name="nom"> <br> <br>
+        <input type="text" placeholder="prenom" name="prenom"> <br> <br>
+        <input type="text" placeholder="Telephone" name="tel"> <br> <br>
 
-    <br> 
- <input type="submit" value="Ajouter">
- <input type="reset" value="Annuler">
 
-    
-</form>
+        <br>
+        <input type="submit" value="Enregistrer">
+        <input type="reset" value="Annuler">
 
-<hr>
-<input type="text" placeholder="search here">
-<form action="/personnes" method="post">
+
+    </form>
+
+    <hr>
+    <input type="text" placeholder="search here">
+
 
     <table>
         <tr>
@@ -38,14 +42,15 @@
             <th>prenom</th>
             <th>Telephone</th>
             <th>delete</th>
+            <th>edit</th>
         </tr>
-   <%=long%>
+        <%=long%>
         <% for(var i=0; i   < long ; i++)  {%>
         <tr>
             <td>
                 <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
             </td>
-           
+
 
             <td>
                 <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
@@ -53,22 +58,49 @@
             <td>
                 <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
             </td>
-        
+
 
             <td>
                 <form action="/deletePersonne" method="post">
                     <input type="text" name="id" value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
-                </input>
+                    </input>
                     <input type="submit" value="Delete" />
                 </form>
 
+            </td>
+            <td>
+                <button onclick="
+                        
+                        
+                        window.id='<%= personnes[i].id %>' ;
+                        window.nom='<%= personnes[i].nom %>' ;
+                        window.prenom='<%= personnes[i].prenom %>' ;
+                        window.tel='<%= personnes[i].tel %>' ;
+                        
+                        setEditionMode()">Edit</button>
             </td>
 
         </tr>
         <% } %>
 
     </table>
-</form>
+
+    <%  var ps = personnes; %>
+
+    <script>
+
+        function setEditionMode() {
+
+
+            document.getElementsByName("id")[0].value = window.id
+            document.getElementsByName("nom")[0].value = window.nom
+            document.getElementsByName("prenom")[0].value = window.prenom
+            document.getElementsByName("tel")[0].value = window.tel
+
+        }
+    </script>
 </body>
+
+
 
 </html>
