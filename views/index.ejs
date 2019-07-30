@@ -12,70 +12,72 @@
 </head>
 
 <body>
-    <h1>hello</h1>
+
     <h1><%=msg%></h1>
 
     <!-- <p><%=JSON.stringify(personnes)%> </p> -->
 
-    <div class="container">
-        <div class="col-md-1"></div>
-        <div class="col-md-4">
-            <!-- block1 -->
-            <form action="/personnes" method="post">
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-1 m-4"></div>
+            <div class="col-md-4">
+                <!-- block1 -->
+                <form action="/personnes" method="post">
 
-                <!-- style="visibility:visible" -->
-                <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
-                <input type="text" placeholder="nom" name="nom"> <br> <br>
-                <input type="text" placeholder="prenom" name="prenom"> <br> <br>
-                <input type="text" placeholder="Telephone" name="tel"> <br> <br>
-        
-        
-                <br>
-                <input type="submit" value="Enregistrer">
-                <input type="reset" value="Annuler">
-        
-        
-            </form>
-        </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <!-- block2 -->
-            <input type="text" placeholder="search here">
+                    <!-- style="visibility:visible" -->
+                    <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
+                    <input type="text" placeholder="nom" name="nom"> <br> <br>
+                    <input type="text" placeholder="prenom" name="prenom"> <br> <br>
+                    <input type="text" placeholder="Telephone" name="tel"> <br> <br>
 
-            <table>
-                <tr>
-                    <th>nom </th>
-                    <th>prenom</th>
-                    <th>Telephone</th>
-                    <th>delete</th>
-                    <th>edit</th>
-                </tr>
-                <%=long%>
-                <% for(var i=0; i   < long ; i++)  {%>
-                <tr>
-                    <td>
-                        <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
-                    </td>
-        
-        
-                    <td>
-                        <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
-                    </td>
-                    <td>
-                        <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
-                    </td>
-        
-        
-                    <td>
-                        <form action="/deletePersonne" method="post">
-                            <input type="text" name="id" value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
-                            </input>
-                            <input type="submit" value="Delete" />
-                        </form>
-        
-                    </td>
-                    <td>
-                        <button onclick="
+
+                    <br>
+                    <input type="submit" value="Enregistrer">
+                    <input type="reset" value="Annuler">
+
+
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <!-- block2 -->
+                <input type="text" placeholder="search here">
+
+                <table>
+                    <tr>
+                        <th>nom </th>
+                        <th>prenom</th>
+                        <th>Telephone</th>
+                        <th>delete</th>
+                        <th>edit</th>
+                    </tr>
+                    <%=long%>
+                    <% for(var i=0; i   < long ; i++)  {%>
+                    <tr>
+                        <td>
+                            <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
+                        </td>
+
+
+                        <td>
+                            <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
+                        </td>
+                        <td>
+                            <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
+                        </td>
+
+
+                        <td>
+                            <form action="/deletePersonne" method="post">
+                                <input type="text" name="id"
+                                    value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
+                                </input>
+                                <input type="submit" value="Delete" />
+                            </form>
+
+                        </td>
+                        <td>
+                            <button onclick="
                                 
                                 
                                 window.id='<%= personnes[i].id %>' ;
@@ -84,20 +86,21 @@
                                 window.tel='<%= personnes[i].tel %>' ;
                                 
                                 setEditionMode()">Edit</button>
-                    </td>
-        
-                </tr>
-                <% } %>
-        
-            </table>
-          
+                        </td>
+
+                    </tr>
+                    <% } %>
+
+                </table>
+
+            </div>
+            <div class="col-md-1"></div>
         </div>
-        <div class="col-md-1"></div>
     </div>
 
 
 
-   
+
 
     <script>
         function setEditionMode() {
