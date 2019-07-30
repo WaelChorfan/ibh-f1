@@ -34,6 +34,33 @@ app.get('/',
 
   }
 )
+
+app.post('/search',
+  function (req, res) {
+
+    var q = "SELECT * FROM personnes where " +
+      "nom like '%" + req.body.searchText + "%' or " +
+      "prenom like '%" + req.body.searchText + "%' or " +
+      "tel like '%" + req.body.searchText + "%'"
+
+    console.log(q);
+    console.log("pppppp");
+
+
+    connection.query(q, function (error, result) {
+      console.log(__dirname);
+      res.render('index', {
+        msg: 'hello world , result(s) of search ',
+        personnes: result?result:[],
+        long: result?result.length:0
+      });
+
+    });
+
+
+  }
+)
+
 app.get('/delete:id',
   function (req, res) {
     connection.query('delete FROM personnes where id= ' + req.params.id, function (error, result) {
@@ -52,8 +79,8 @@ app.post('/personnes', (req, res) => {
     + 'ON DUPLICATE KEY UPDATE '
     + ' nom= ?,prenom= ?,tel= ?'
 
-    //respectivement ordonnés comme dans la requete
-  let d = [ r.id , r.nom,r.prenom,r.tel  ,r.nom,r.prenom,r.tel]
+  //respectivement ordonnés comme dans la requete
+  let d = [r.id, r.nom, r.prenom, r.tel, r.nom, r.prenom, r.tel]
 
   let query = mysql.format(q, d)
 
@@ -64,7 +91,7 @@ app.post('/personnes', (req, res) => {
     // res.send('Enregistré avec succes')
 
 
-      res.redirect('http://localhost:3000')
+    res.redirect('http://localhost:3000')
   })
 })
 

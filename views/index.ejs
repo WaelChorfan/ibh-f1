@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Document</title>
 </head>
 
@@ -15,35 +16,35 @@
 
     <h1><%=msg%></h1>
 
-    <!-- <p><%=JSON.stringify(personnes)%> </p> -->
-
     <div class="container ">
-        <div class="row">
-            <div class="col-md-1 m-4"></div>
-            <div class="col-md-4">
+        <div class="row offset-1">
+
+            <div class="col-md-4 col-offset-2 m-1">
                 <!-- block1 -->
                 <form action="/personnes" method="post">
-
                     <!-- style="visibility:visible" -->
                     <input type="text" placeholder="id" name="id" style="visibility:visible"> <br> <br>
                     <input type="text" placeholder="nom" name="nom"> <br> <br>
                     <input type="text" placeholder="prenom" name="prenom"> <br> <br>
                     <input type="text" placeholder="Telephone" name="tel"> <br> <br>
 
-
                     <br>
                     <input type="submit" value="Enregistrer">
                     <input type="reset" value="Annuler">
 
-
                 </form>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
-                <!-- block2 -->
-                <input type="text" placeholder="search here">
 
-                <table>
+   
+
+            <div class="col-md-4 col-offset-2 m-1 ">
+                <!-- block2 -->
+                <form action="/search" method="POST">
+                    <input type="text" placeholder="search here"  name="searchText">
+                    <input type="submit" value="Search .."  >
+                </form>
+                
+                <table class="table table-striped">
                     <tr>
                         <th>nom </th>
                         <th>prenom</th>
@@ -51,22 +52,17 @@
                         <th>delete</th>
                         <th>edit</th>
                     </tr>
-                    <%=long%>
                     <% for(var i=0; i   < long ; i++)  {%>
                     <tr>
                         <td>
                             <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
                         </td>
-
-
                         <td>
                             <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
                         </td>
                         <td>
                             <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
                         </td>
-
-
                         <td>
                             <form action="/deletePersonne" method="post">
                                 <input type="text" name="id"
@@ -79,12 +75,10 @@
                         <td>
                             <button onclick="
                                 
-                                
                                 window.id='<%= personnes[i].id %>' ;
                                 window.nom='<%= personnes[i].nom %>' ;
                                 window.prenom='<%= personnes[i].prenom %>' ;
                                 window.tel='<%= personnes[i].tel %>' ;
-                                
                                 setEditionMode()">Edit</button>
                         </td>
 
@@ -94,7 +88,6 @@
                 </table>
 
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 
