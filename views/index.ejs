@@ -40,7 +40,57 @@
         <div class="col-md-2"></div>
         <div class="col-md-4">
             <!-- block2 -->
+            <input type="text" placeholder="search here">
 
+            <table>
+                <tr>
+                    <th>nom </th>
+                    <th>prenom</th>
+                    <th>Telephone</th>
+                    <th>delete</th>
+                    <th>edit</th>
+                </tr>
+                <%=long%>
+                <% for(var i=0; i   < long ; i++)  {%>
+                <tr>
+                    <td>
+                        <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
+                    </td>
+        
+        
+                    <td>
+                        <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
+                    </td>
+                    <td>
+                        <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
+                    </td>
+        
+        
+                    <td>
+                        <form action="/deletePersonne" method="post">
+                            <input type="text" name="id" value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
+                            </input>
+                            <input type="submit" value="Delete" />
+                        </form>
+        
+                    </td>
+                    <td>
+                        <button onclick="
+                                
+                                
+                                window.id='<%= personnes[i].id %>' ;
+                                window.nom='<%= personnes[i].nom %>' ;
+                                window.prenom='<%= personnes[i].prenom %>' ;
+                                window.tel='<%= personnes[i].tel %>' ;
+                                
+                                setEditionMode()">Edit</button>
+                    </td>
+        
+                </tr>
+                <% } %>
+        
+            </table>
+          
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -48,57 +98,7 @@
 
 
    
-    <input type="text" placeholder="search here">
 
-    <table>
-        <tr>
-            <th>nom </th>
-            <th>prenom</th>
-            <th>Telephone</th>
-            <th>delete</th>
-            <th>edit</th>
-        </tr>
-        <%=long%>
-        <% for(var i=0; i   < long ; i++)  {%>
-        <tr>
-            <td>
-                <%= JSON.stringify(personnes[i].nom).replace(/"/g,'') %>
-            </td>
-
-
-            <td>
-                <%= JSON.stringify(personnes[i].prenom).replace(/"/g,'')%>
-            </td>
-            <td>
-                <%= JSON.stringify(personnes[i].tel).replace(/"/g,'')%>
-            </td>
-
-
-            <td>
-                <form action="/deletePersonne" method="post">
-                    <input type="text" name="id" value="<%= JSON.stringify(personnes[i].id).replace(/"/g,'') %>" hidden>
-                    </input>
-                    <input type="submit" value="Delete" />
-                </form>
-
-            </td>
-            <td>
-                <button onclick="
-                        
-                        
-                        window.id='<%= personnes[i].id %>' ;
-                        window.nom='<%= personnes[i].nom %>' ;
-                        window.prenom='<%= personnes[i].prenom %>' ;
-                        window.tel='<%= personnes[i].tel %>' ;
-                        
-                        setEditionMode()">Edit</button>
-            </td>
-
-        </tr>
-        <% } %>
-
-    </table>
-  
     <script>
         function setEditionMode() {
             document.getElementsByName("id")[0].value = window.id
